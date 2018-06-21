@@ -1,7 +1,9 @@
-<div>todo</div>
-<div (click)="toggleTaskStatus(todo)" *ngFor="let todo of incompleteTasks">{{todo.name}}</div>
-<div>done</div>
-<div style="text-decoration: line-through" (click)="toggleTaskStatus(todo)" *ngFor="let todo of completeTasks">{{todo.name}}</div>
-<input #newTaskInput>
-<button (click)="addTask()">add</button>
-<button (click)="sortTasks()">sort</button>
+<div>
+  <div>todo</div>
+  <div (click)="toggleTaskStatus(todo)" *ngFor="let todo of incompleteTasks">{{todo.name}}</div>
+  <div>done</div>
+  <div style="text-decoration: line-through" (click)="toggleTaskStatus(todo)" *ngFor="let todo of completeTasks">{{todo.name}}</div>
+  <input #newTaskInput>
+  <button (click)="addTask()">add</button>
+  <button (click)="sortTasks()">sort</button>
+</div>
