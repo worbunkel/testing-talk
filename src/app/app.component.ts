@@ -10,21 +10,20 @@ export class AppComponent {
   public tasks: Array<Task> = [
     {
       name: 'Brush my Teeth',
-      status: TaskStatus.complete
+      status: TaskStatus.complete,
+      create: '2002-02-02 00:00:00T',
     },
     {
       name: 'Clean my room',
-      status: TaskStatus.incomplete
+      status: TaskStatus.incomplete,
+      create: '2002-03-02 00:00:00T',
     }
   ];
   public incompleteTasks: Array<Task> = [];
   public completeTasks: Array<Task> = [];
-  public newTask: Task = {
-    name: '',
-    status: TaskStatus.incomplete
-  };
 
   constructor() {
+
     this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
     this.completeTasks = this.tasks.filter(task => task.status === TaskStatus.complete);
   }
@@ -41,6 +40,12 @@ export class AppComponent {
     this.filterTasks();
   }
 
+  getTaskAge(task) {
+    const now = Date.now();
+
+    return now - new Date(task.created).getTime();
+  }
+
   sortTasks() {
     this.tasks.sort((a: any, b: any) => a.name - b.name);
   }
@@ -48,7 +53,7 @@ export class AppComponent {
   addTask() {
     const newTaskInput = this.newTaskInput.nativeElement.value;
     console.warn(newTaskInput);
-    const newTask = { name: newTaskInput, status: TaskStatus.incomplete };
+    const newTask = { name: newTaskInput, status: TaskStatus.incomplete, create: new Date().toISOString() };
     this.tasks.push(newTask);
     this.filterTasks();
   }
@@ -57,6 +62,7 @@ export class AppComponent {
 export interface Task {
   name: string;
   status: TaskStatus;
+  create: string;
 }
 
 enum TaskStatus {
