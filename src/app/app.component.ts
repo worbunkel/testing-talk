@@ -21,12 +21,16 @@ export class AppComponent {
   ];
   public incompleteTasks: Array<Task> = [];
   public completeTasks: Array<Task> = [];
+  public sortMode = 'Alphabetically';    
 
   constructor() {
-
     this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
     this.completeTasks = this.tasks.filter(task => task.status === TaskStatus.complete);
   }
+
+  // tasksOfStatus(status) {
+  //   return tasks => tasks.filter(task => task.status === status);
+  // }
 
   filterTasks() {
     this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
@@ -46,7 +50,15 @@ export class AppComponent {
     return now - new Date(task.created).getTime();
   }
 
-  sortTasks() {
+  changeSortMode() {
+    if (this.sortMode === 'Alphabetically') {
+      this.sortMode = 'Date';
+    } else {
+      this.sortMode = 'Alphabetically';
+    }                
+  }      
+
+  sortTasks() {    
     this.tasks.sort((a: any, b: any) => a.name - b.name);
   }
 
@@ -69,3 +81,43 @@ enum TaskStatus {
   complete = 'COMPLETE',
   incomplete = 'INCOMPLETE',
 }
+
+describe('theCodeFile', () => {
+  it('tests the firstFunction', () => {
+
+  })
+})
+
+describe('<NOUN>', () => {
+  describe('<SCENARIO>', () => {
+    it('should <VERB PHRASE SPECIFICALLY EXPANING THE DESIRED BEHAVIOR>', () => {
+
+    })
+  });
+});
+
+describe('Frog', () => {
+  it('should croak when it is alive and is American', () => {
+  });
+
+  describe('when the frog is Swiss', () => {
+    it('should yodel')
+  });
+});
+
+describe('Frog', () => {
+  describe('when the frog is American', () => {
+    it('should croak')
+  });
+
+  describe('when the frog is Swiss', () => {
+    it('should yodel')
+  });
+});
+// "Frog should croak" <-- turns into a readable English phrase
+
+/**
+ * Take advantage of the way test cases get printed.  Make your `it`s as specific as possible so that when failures
+ * happen, the behavior description pinpoints the failure for you immediately
+ */
+

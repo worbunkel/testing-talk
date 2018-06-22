@@ -5,5 +5,9 @@
   <div style="text-decoration: line-through" (click)="toggleTaskStatus(todo)" *ngFor="let todo of completeTasks">{{todo.name}}</div>
   <input #newTaskInput>
   <button (click)="addTask()">add</button>
-  <button (click)="sortTasks()">sort</button>
+  <div>
+    <span>sort mode:</span>
+    <button (click)="changeSortMode()">{{sortMode}}</button>
+    <button (click)="sortTasks()">sort</button>
+  </div>
 </div>
