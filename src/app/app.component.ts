@@ -11,17 +11,17 @@ export class AppComponent {
     {
       name: 'Brush my Teeth',
       status: TaskStatus.complete,
-      create: '2002-02-02 00:00:00T',
+      create: new Date().toISOString(),
     },
     {
       name: 'Clean my room',
       status: TaskStatus.incomplete,
-      create: '2002-03-02 00:00:00T',
+      create: new Date().toISOString(),
     }
   ];
   public incompleteTasks: Array<Task> = [];
   public completeTasks: Array<Task> = [];
-  public sortMode = 'Alphabetically';    
+  public sortMode = 'Alphabetically';
 
   constructor() {
     this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
@@ -55,16 +55,30 @@ export class AppComponent {
       this.sortMode = 'Date';
     } else {
       this.sortMode = 'Alphabetically';
-    }                
-  }      
+    }
+  }
 
   sortTasks() {
-    this.tasks.sort((a: Task, b: Task) => (a.name > b.name ? -1 : 1));
+    this.tasks.sort((a: Task, b: Task) => {
+      if (this.sortMode === 'Alphabetically') {
+        if (a.name > b.name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      } else if (this.sortMode === 'Date') {
+        if (new Date(a.create).getTime() < new Date(b.create).getTime()) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    });
+    this.filterTasks();
   }
 
   addTask() {
     const newTaskInput = this.newTaskInput.nativeElement.value;
-    console.warn(newTaskInput);
     const newTask = { name: newTaskInput, status: TaskStatus.incomplete, create: new Date().toISOString() };
     this.tasks.push(newTask);
     this.filterTasks();
