@@ -1,10 +1,10 @@
 import { TaskStatus, Task, TaskSortMode } from './task.interface';
 
-export const addNewTaskByName = (newTaskName: string, tasks: Readonly<Array<Task>>) => {
+export const addNewTaskByName = (newTaskName: string, createTimeISOString: string, tasks: Readonly<Array<Task>>) => {
   const newTask = newTaskName ? {
     name: newTaskName,
     status: TaskStatus.incomplete,
-    create: new Date().toISOString(),
+    create: createTimeISOString,
   } : null;
   return addNewTask(newTask, tasks);
 };
@@ -12,7 +12,7 @@ export const addNewTaskByName = (newTaskName: string, tasks: Readonly<Array<Task
 export const addNewTask = (newTask: Task, tasks: Readonly<Array<Task>>) =>
   tasks.concat(newTask);
 
-// IMPURE, but that's okay
+// impure, but we can test
 export const clearInput = (inputEl: HTMLInputElement): void => {
   inputEl.value = '';
 };
@@ -49,25 +49,17 @@ export const getOppositeStatus = (status: string) =>
 export const getTaskAge = (task: Task, currentTime: number): number =>
   currentTime - new Date(task.create).getTime();
 
-
-//  should sort alphabetically
-//    numbers come before caps
-//    capitals come before non caps
-//  should sort by created time when sort mode is created time
-//    earlier create times come first
 export const sortTasksAlphabetically = (tasks: Array<Task>): Array<Task> =>
   tasks.slice().sort(compareAlphabetically);
 
 export const compareAlphabetically = (taskA: Task, taskB: Task) =>
   taskA.name > taskB.name ? 1 : -1;
 
-
 export const sortTasksByCreateTime = (tasks: Array<Task>, currentTime: number): Array<Task> => {
   const compareByTime = makeCompareByTime(currentTime);
   console.warn('sortTasksByCreateTime');
   return tasks.slice().sort(compareByTime);
 };
-
 
 export const makeCompareByTime = (currentTime: number) =>
   (taskA: Task, taskB: Task) => getTaskAge(taskA, currentTime) < getTaskAge(taskB, currentTime) ? 1 : -1;

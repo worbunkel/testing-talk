@@ -40,6 +40,7 @@ export class AppComponent {
   }
 
   // ANONYMOUS FUNCTIONS
+  // How would I test that to see if the incomplete task filter actually does what I want?
   filterTasks(): void {
     this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
     this.completeTasks = this.tasks.filter(task => task.status === TaskStatus.complete);
@@ -53,11 +54,14 @@ export class AppComponent {
     this.filterTasks();
   }
 
+  // How can I expect the result of this??
   getTaskAge(task): number {
     const now = Date.now();
     return now - new Date(task.create).getTime();
   }
 
+  // Use Ternaries
+  // Write predicates for conditionals
   changeSortMode(): void {
     if (this.sortMode === 'Alphabetically') {
       this.sortMode = 'Created Time';
@@ -66,7 +70,6 @@ export class AppComponent {
     }
   }
 
-  // BAD
   addTask(): void {
     const newTaskInput = this.newTaskInput.nativeElement.value;
     const newTask = { name: newTaskInput, status: TaskStatus.incomplete, create: new Date().toISOString() };
@@ -75,7 +78,6 @@ export class AppComponent {
     this.newTaskInput.nativeElement.value = '';
   }
 
-  // BAD
   deleteTask(taskToDelete): void {
     this.tasks = this.tasks.filter(task => task !== taskToDelete);
     this.filterTasks();
@@ -106,54 +108,3 @@ export class AppComponent {
     this.filterTasks();
   }
 }
-
-
-/*
-describe('theCodeFile', () => {
-  it('tests the firstFunction', () => {
-
-  })
-})
-
-describe('<NOUN>', () => {
-  describe('<SCENARIO>', () => {
-    it('should <VERB PHRASE SPECIFICALLY EXPANING THE DESIRED BEHAVIOR>', () => {
-
-    })
-  });
-});
-
-describe('Frog', () => {
-  it('should croak when it is alive and is American', () => {
-  });
-
-  it('should yodel when it is alive and is Swiss', () => {
-  });
-
-  it('should sigh when it is dead', () => {
-  });
-});
-
-describe('Frog', () => {
-  describe('when it is alive', () => {
-    describe('when the frog is American', () => {
-      it('should croak')
-    });
-
-    describe('when the frog is Swiss', () => {
-      it('should yodel')
-    });
-  });
-
-  describe('when it is dead', () => {
-    it('should sigh')
-  });
-});
-// "Frog should croak" <-- turns into a readable English phrase
-*/
-
-/**
- * Take advantage of the way test cases get printed.  Make your `it`s as specific as possible so that when failures
- * happen, the behavior description pinpoints the failure for you immediately
- */
-

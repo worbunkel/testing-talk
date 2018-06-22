@@ -55,7 +55,9 @@ export class AppComponent {
 
   addTask(newTaskInput: HTMLInputElement): void {
     const newTaskName = _.get(newTaskInput, 'value');
-    this.tasks = Utils.addNewTaskByName(newTaskName, this.tasks);
+    const currentTimeISOString = new Date().toISOString();
+
+    this.tasks = Utils.addNewTaskByName(newTaskName, currentTimeISOString, this.tasks);
     Utils.clearInput(newTaskInput);
   }
 
@@ -65,58 +67,8 @@ export class AppComponent {
 
   sortTasks(): void {
     const currentTime = Date.now();
+
     this.tasks = Utils.sortTasks(this.tasks, this.sortMode, currentTime);
   }
 
 }
-
-
-/*
-describe('theCodeFile', () => {
-  it('tests the firstFunction', () => {
-
-  })
-})
-
-describe('<NOUN>', () => {
-  describe('<SCENARIO>', () => {
-    it('should <VERB PHRASE SPECIFICALLY EXPANING THE DESIRED BEHAVIOR>', () => {
-
-    })
-  });
-});
-
-describe('Frog', () => {
-  it('should croak when it is alive and is American', () => {
-  });
-
-  it('should yodel when it is alive and is Swiss', () => {
-  });
-
-  it('should sigh when it is dead', () => {
-  });
-});
-
-describe('Frog', () => {
-  describe('when it is alive', () => {
-    describe('when the frog is American', () => {
-      it('should croak')
-    });
-
-    describe('when the frog is Swiss', () => {
-      it('should yodel')
-    });
-  });
-
-  describe('when it is dead', () => {
-    it('should sigh')
-  });
-});
-// "Frog should croak" <-- turns into a readable English phrase
-*/
-
-/**
- * Take advantage of the way test cases get printed.  Make your `it`s as specific as possible so that when failures
- * happen, the behavior description pinpoints the failure for you immediately
- */
-
