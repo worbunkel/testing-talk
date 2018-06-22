@@ -58,8 +58,8 @@ export class AppComponent {
     }                
   }      
 
-  sortTasks() {    
-    this.tasks.sort((a: any, b: any) => a.name - b.name);
+  sortTasks() {
+    this.tasks.sort((a: Task, b: Task) => (a.name > b.name ? -1 : 1));
   }
 
   addTask() {
@@ -82,6 +82,7 @@ enum TaskStatus {
   incomplete = 'INCOMPLETE',
 }
 
+/*
 describe('theCodeFile', () => {
   it('tests the firstFunction', () => {
 
@@ -100,21 +101,30 @@ describe('Frog', () => {
   it('should croak when it is alive and is American', () => {
   });
 
-  describe('when the frog is Swiss', () => {
-    it('should yodel')
+  it('should yodel when it is alive and is Swiss', () => {
+  });
+
+  it('should sigh when it is dead', () => {
   });
 });
 
 describe('Frog', () => {
-  describe('when the frog is American', () => {
-    it('should croak')
+  describe('when it is alive', () => {
+    describe('when the frog is American', () => {
+      it('should croak')  
+    });
+
+    describe('when the frog is Swiss', () => {
+      it('should yodel')
+    });
   });
 
-  describe('when the frog is Swiss', () => {
-    it('should yodel')
+  describe('when it is dead', () => {
+    it('should sigh')
   });
 });
 // "Frog should croak" <-- turns into a readable English phrase
+*/
 
 /**
  * Take advantage of the way test cases get printed.  Make your `it`s as specific as possible so that when failures
