@@ -65,6 +65,7 @@
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
+    "no-parameter-reassignment": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-string-throw": true,
@@ -92,9 +93,20 @@
       true,
       "always"
     ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
     "triple-equals": [
       true,
       "allow-null-check"
+    ],
+    "typedef": [
+      true,
+      "call-signature"
     ],
     "typedef-whitespace": [
       true,

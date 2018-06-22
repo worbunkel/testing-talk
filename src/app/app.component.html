@@ -1,13 +1,33 @@
-<div style="background-color: #cccccc; padding: 20px;">
-  <h4>Toto</h4>
-  <div style="cursor: pointer;" (click)="toggleTaskStatus(todo)" *ngFor="let todo of incompleteTasks">{{todo.name}}</div>
-  <h4>done</h4>
-  <div style="text-decoration: line-through; cursor: pointer;" (click)="toggleTaskStatus(todo)" *ngFor="let todo of completeTasks">{{todo.name}}</div>
-  <input #newTaskInput>
-  <button (click)="addTask()">add</button>
-  <div>
-    <span>sort mode:</span>
-    <button (click)="changeSortMode()">{{sortMode}}</button>
-    <button (click)="sortTasks()">sort</button>
+<div class="background">
+
+  <div class="category">Toto</div>
+  <div class="section">
+    <div class="todo" *ngFor="let todo of incompleteTasks">
+      <span (click)="toggleTaskStatus(todo)">{{todo.name}}</span>
+      <button (click)="deleteTask(todo)">delete</button>
+    </div>
   </div>
+
+  <div class="category">done</div>
+  <div class="section">
+    <div class="todo complete" *ngFor="let todo of completeTasks">
+      <span (click)="toggleTaskStatus(todo)">{{todo.name}}</span>
+      <button (click)="deleteTask(todo)">delete</button>
+    </div>
+  </div>
+
+  <div class="category">add a task</div>
+  <div class="section">
+    <input #newTaskInput (keyup.enter)="addTask(newTaskInput)">
+    <button (click)="addTask(newTaskInput)">add</button>
+  </div>
+
+  <div class="category">sort</div>
+  <div class="section">
+    <div>
+      <button (click)="changeSortMode()">{{sortMode}}</button>
+      <button (click)="sortTasks()">sort</button>
+    </div>
+  </div>
+
 </div>
