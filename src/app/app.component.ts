@@ -9,12 +9,12 @@ export class AppComponent {
   @ViewChild('newTaskInput') newTaskInput: ElementRef;
   public tasks: Array<Task> = [
     {
-      name: 'Brush my Teeth',
+      name: 'Hold the Line',
       status: TaskStatus.complete,
       create: new Date().toISOString(),
     },
     {
-      name: 'Clean my room',
+      name: 'Bless the rains down in Africa',
       status: TaskStatus.incomplete,
       create: new Date().toISOString(),
     }
@@ -32,10 +32,19 @@ export class AppComponent {
   //   return tasks => tasks.filter(task => task.status === status);
   // }
 
+  // ANONYMOUS FUNCTIONS
   filterTasks() {
-    this.incompleteTasks = this.tasks.filter(task => task.status === TaskStatus.incomplete);
+    this.incompleteTasks = this.tasks.filter(task => task.status === 'incomplete'); // THIS WILL FAIL
     this.completeTasks = this.tasks.filter(task => task.status === TaskStatus.complete);
+
+    // this.incompleteTasks = this.tasks.filter(this.isIncomplete);
   }
+
+  // TOTO: Tomorrow let's go through and refactor into the good ways
+
+  // isIncomplete(task) {
+  //   return task.status === 'INCOMPLETE';
+  // }
 
   toggleTaskStatus(task) {
     task.status = task.status === TaskStatus.complete
@@ -58,6 +67,7 @@ export class AppComponent {
     }
   }
 
+  // TDD THIS SORT TASKS THING
   sortTasks() {
     this.tasks.sort((a: Task, b: Task) => {
       if (this.sortMode === 'Alphabetically') {
@@ -87,7 +97,7 @@ export class AppComponent {
 
 export interface Task {
   name: string;
-  status: TaskStatus;
+  status: string;
   create: string;
 }
 
@@ -125,7 +135,7 @@ describe('Frog', () => {
 describe('Frog', () => {
   describe('when it is alive', () => {
     describe('when the frog is American', () => {
-      it('should croak')  
+      it('should croak')
     });
 
     describe('when the frog is Swiss', () => {
